@@ -6,9 +6,7 @@
 const int MAX_N = 1500;
 
 int n;
-
 std::vector<int> adj[MAX_N];
-
 std::map<int, int> cap[MAX_N];
 std::bitset<MAX_N> visited;
 
@@ -22,8 +20,7 @@ void read_input() {
     std::string src, tmp;
     while (std::cin >> tmp) {
         if (tmp.back() == ':') {
-            src = tmp;
-            src.pop_back();
+            src = tmp; src.pop_back();
         } else {
             adj[to_int(src)].push_back(to_int(tmp));
             adj[to_int(tmp)].push_back(to_int(src));
@@ -33,9 +30,7 @@ void read_input() {
 
 void reset_capacity() {
     for (int i = 0; i < n; ++i)
-        for (int j : adj[i]) {
-            cap[i][j] = 1;
-        }
+        for (int j : adj[i]) cap[i][j] = 1;
 }
 
 bool augment(int i, int sink) {
@@ -52,7 +47,6 @@ bool augment(int i, int sink) {
 
 int main() {
     read_input();
-
     for (int i = 1; i < n; ++i) {
         reset_capacity();
         int flow = 0;
@@ -62,6 +56,7 @@ int main() {
         }
         if (flow == 3) {
             std::cout << visited.count() * (n - visited.count()) << std::endl;
+            break;
         }
     }
 }
